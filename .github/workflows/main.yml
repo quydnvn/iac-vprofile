@@ -1,4 +1,4 @@
-name: "Vprofile IAC"
+name: vprofile actions
 on:
   push:
     branches:
@@ -17,12 +17,13 @@ env:
   BUCKET_TF_STATE: ${{ secrets.BUCKET_TF_STATE }}
   AWS_REGION: us-west-2
   EKS_CLUSTER: vprofile-eks
+
 jobs:
   Terraform:
     runs-on: ubuntu-latest
     steps:
       - name: Code checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       
       - name: Setup Terraform with specified version on the runner
         uses: hashicorp/setup-terraform@v2
@@ -47,4 +48,3 @@ jobs:
       - name: Terraform plan status
         if: steps.plan.outcome == 'failure'
         run: exit 1
-#######
